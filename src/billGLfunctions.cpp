@@ -1,85 +1,90 @@
 #include "../headers/billGLfunctions.h"
 
-float bill::GLaux::colorR=0.0;
-float bill::GLaux::colorB=0.0;
-float bill::GLaux::colorG=0.0;
+float bill::GLaux::colorR = 0.0;
+float bill::GLaux::colorB = 0.0;
+float bill::GLaux::colorG = 0.0;
 
-bill::vector bill::GLaux::eye=bill::vector({1.0,1.0,0.0});
-bill::vector bill::GLaux::center=bill::vector({0.0,1.0,0.0});
-bill::vector bill::GLaux::versor_up=bill::vector({0.0,1.0,0.0});
+bill::vector bill::GLaux::eye=bill::vector({1.0, 1.0, 0.0});
+bill::vector bill::GLaux::center=bill::vector({0.0, 1.0, 0.0});
+bill::vector bill::GLaux::versor_up=bill::vector({0.0, 1.0, 0.0});
 
 float bill::GLaux::phi = 0.0f;
 float bill::GLaux::theta = 0.0f;
 
-int bill::GLaux::moveParallel=0;
-int bill::GLaux::movePerpendicular=0;
-int bill::GLaux::rotateParallel=0;
-int bill::GLaux::rotatePerpendicular=0;
+int bill::GLaux::moveParallel = 0;
+int bill::GLaux::movePerpendicular = 0;
+int bill::GLaux::rotateParallel = 0;
+int bill::GLaux::rotatePerpendicular = 0;
 
 double bill::GLaux::dPhi = 0.01;
-bill::quaternion bill::GLaux::q1=bill::quaternion(versor_up,dPhi);
-bill::quaternion bill::GLaux::q2=bill::quaternion(((center - eye).versor())^versor_up,dPhi);
+bill::quaternion bill::GLaux::q1 = bill::quaternion(versor_up, dPhi);
+bill::quaternion bill::GLaux::q2 =
+  bill::quaternion(((center - eye).versor())^versor_up, dPhi);
 
-float bill::GLaux::dws=0.01f;
-float bill::GLaux::dad=0.01f;
+float bill::GLaux::dws = 0.01f;
+float bill::GLaux::dad = 0.01f;
 
 bool bill::GLaux::IS_CLICKED = false;
-int bill::GLaux::mouseTolerance=0;
+int bill::GLaux::mouseTolerance = 0;
 
 void bill::GLaux::computePos() {
   
   //std::cout<<"center-eye: "<<center-eye<<" "<<bill::vector::norm(center-eye)<<" up: "<<versor_up<<" "<<bill::vector::norm(versor_up)<<std::endl;
   
-  if(moveParallel|movePerpendicular){
-  bill::vector deltaEyeCen = (center - eye).versor();
-  if(moveParallel){
-    eye += deltaEyeCen*(moveParallel*dws);
-    center += deltaEyeCen*(moveParallel*dws);
-  }
-  if(movePerpendicular){
-    bill::vector perp=deltaEyeCen^versor_up;
-    eye+= perp*(movePerpendicular*dad);
-    center+= perp*(movePerpendicular*dad);
-  }
+  if(moveParallel | movePerpendicular) {
+    bill::vector deltaEyeCen = (center - eye).versor();
+    if (moveParallel) {
+      eye += deltaEyeCen*(moveParallel * dws);
+      center += deltaEyeCen*(moveParallel * dws);
+    }
+
+    if (movePerpendicular) {
+      bill::vector perp = deltaEyeCen^versor_up;
+      eye += perp * (movePerpendicular * dad);
+      center += perp * (movePerpendicular * dad);
+    }
   }
   
- if(rotatePerpendicular|rotateParallel){ 
-  if(rotatePerpendicular)
-    center = eye + (rotatePerpendicular>0 ? (*q2).rotate(center-eye) : (q2).rotate(center-eye));
+  if (rotatePerpendicular | rotateParallel) { 
+    if (rotatePerpendicular)
+      center = eye + (rotatePerpendicular > 0 ? (*q2).rotate(center-eye)
+		      : (q2).rotate(center-eye));
    
-  if(rotateParallel)
-    center = eye + (rotateParallel>0 ? (*q1).rotate(center-eye) : (q1).rotate(center-eye));
+    if(rotateParallel)
+      center = eye + (rotateParallel > 0 ? (*q1).rotate(center-eye)
+		      : (q1).rotate(center-eye));
   
-  q2.updateU(((center - eye).versor())^versor_up);
-}
-  
+    q2.updateU(((center - eye).versor())^versor_up);
+  }
 }
 
 
-void bill::GLaux::drawBall(bill::vector position, bill::vector color, float radius, float alpha){
+void bill::GLaux::drawBall(bill::vector position, bill::vector color,
+			   float radius, float alpha) {
   glPushMatrix();
 
-  if(fabs(alpha-1.)<1e-15)
-    glColor3f(color[0],color[1],color[2]);
+  if(fabs(alpha - 1.) < 1e-15)
+    glColor3f(color[0], color[1], color[2]);
   else 
-    glColor4f(color[0],color[1],color[2],alpha);
+    glColor4f(color[0], color[1], color[2], alpha);
 
-  glTranslatef(position[0],position[1],position[2]);
+  glTranslatef(position[0], position[1], position[2]);
 
-  if(radius<0.05)
-    glutSolidSphere(radius,5,5);
-  else if(radius>0.5)
-    glutSolidSphere(radius,50,50);
+  if (radius < 0.05)
+    glutSolidSphere(radius, 5, 5);
+  else if(radius > 0.5)
+    glutSolidSphere(radius, 50, 50);
   else{
-    unsigned int res = static_cast<unsigned int>(100*radius);
-    glutSolidSphere(radius,res,res);
+    unsigned int res = static_cast<unsigned int>(100 * radius);
+    glutSolidSphere(radius, res, res);
   }
 
   glPopMatrix();
 }
 
 
-void bill::GLaux::drawVector(bill::vector vec, bill::vector pos, bill::vector color){
+void bill::GLaux::drawVector(bill::vector vec, bill::vector pos,
+			     bill::vector color) {
   double length = bill::vector::norm(vec);
 
   bill::vector end = pos + vec; // end of the vector
@@ -91,8 +96,7 @@ void bill::GLaux::drawVector(bill::vector vec, bill::vector pos, bill::vector co
     vp1[0]=-vec[1];
     vp1[1]= vec[0];
     vp1[2]= 0.;
-  }
-  else{
+  } else {
     vp1[0]= 0.;
     vp1[1]=-vec[2];
     vp1[2]= vec[1];
@@ -103,10 +107,10 @@ void bill::GLaux::drawVector(bill::vector vec, bill::vector pos, bill::vector co
   vp1.normalize();
   vp2.normalize();
 
-  bill::vector s1p = end + 0.05*length*vp1 - 0.05*vec;
-  bill::vector s1m = end - 0.05*length*vp1 - 0.05*vec;
-  bill::vector s2p = end + 0.05*length*vp2 - 0.05*vec;
-  bill::vector s2m = end - 0.05*length*vp2 - 0.05*vec;
+  bill::vector s1p = end + 0.05 * length * vp1 - 0.05 * vec;
+  bill::vector s1m = end - 0.05 * length * vp1 - 0.05 * vec;
+  bill::vector s2p = end + 0.05 * length * vp2 - 0.05 * vec;
+  bill::vector s2m = end - 0.05 * length * vp2 - 0.05 * vec;
 
 
   // drawing
