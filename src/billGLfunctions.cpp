@@ -118,26 +118,26 @@ void bill::GLaux::drawVector(bill::vector vec, bill::vector pos,
   glLineWidth(2.5);
   glColor3f(color[0], color[1], color[2]);
   glBegin(GL_LINES);
-  glVertex3f(pos[0],pos[1],pos[2]);
-  glVertex3f(end[0],end[1],end[2]); // main line
+  glVertex3f(pos[0], pos[1], pos[2]);
+  glVertex3f(end[0], end[1], end[2]); // main line
   glEnd();
   glPopMatrix();
 
   glPushMatrix();
   glColor3f(color[0], color[1], color[2]);
   glBegin(GL_TRIANGLES);         // head
-  glVertex3f(end[0],end[1],end[2]);
-  glVertex3f(s1p[0],s1p[1],s1p[2]);
-  glVertex3f(s2p[0],s2p[1],s2p[2]);
-  glVertex3f(end[0],end[1],end[2]);
-  glVertex3f(s2p[0],s2p[1],s2p[2]);
-  glVertex3f(s1m[0],s1m[1],s1m[2]);
-  glVertex3f(end[0],end[1],end[2]);
-  glVertex3f(s1m[0],s1m[1],s1m[2]);
-  glVertex3f(s2m[0],s2m[1],s2m[2]);
-  glVertex3f(end[0],end[1],end[2]);
-  glVertex3f(s2m[0],s2m[1],s2m[2]);
-  glVertex3f(s1p[0],s1p[1],s1p[2]);
+  glVertex3f(end[0], end[1], end[2]);
+  glVertex3f(s1p[0], s1p[1], s1p[2]);
+  glVertex3f(s2p[0], s2p[1], s2p[2]);
+  glVertex3f(end[0], end[1], end[2]);
+  glVertex3f(s2p[0], s2p[1], s2p[2]);
+  glVertex3f(s1m[0], s1m[1], s1m[2]);
+  glVertex3f(end[0], end[1], end[2]);
+  glVertex3f(s1m[0], s1m[1], s1m[2]);
+  glVertex3f(s2m[0], s2m[1], s2m[2]);
+  glVertex3f(end[0], end[1], end[2]);
+  glVertex3f(s2m[0], s2m[1], s2m[2]);
+  glVertex3f(s1p[0], s1p[1], s1p[2]);
   glEnd();
   glPopMatrix();
 
@@ -157,40 +157,41 @@ void bill::GLaux::drawSnowMan() {
   
   // Draw Eyes
   glPushMatrix();
-  glColor3f(0.0f,0.0f,0.0f);
+  glColor3f(0.0f, 0.0f, 0.0f);
   glTranslatef(0.05f, 0.10f, 0.18f);
-  glutSolidSphere(0.05f,10,10);
+  glutSolidSphere(0.05f, 10, 10);
   glTranslatef(-0.1f, 0.0f, 0.0f);
-  glutSolidSphere(0.05f,10,10);
+  glutSolidSphere(0.05f, 10, 10);
   glPopMatrix();
   
   // Draw Nose
   glColor3f(1.0f, 0.5f , 0.5f);
-  glRotatef(0.0f,1.0f, 0.0f, 0.0f);
-  glutSolidCone(0.08f,0.5f,10,2);
+  glRotatef(0.0f, 1.0f, 0.0f, 0.0f);
+  glutSolidCone(0.08f, 0.5f, 10, 2);
 }
 
 void bill::GLaux::processNormalKeys(unsigned char key, int x, int y) {
   
   switch (key) {
-    case 'x' : exit(0); break;
+    case 'x' : exit(0);
+      break;
     case 'w' : 
-      moveParallel=1;  
+      moveParallel = 1;
       break;
     case 's' : 
-      moveParallel=-1;
+      moveParallel = -1;
       break;
     case 'a' : 
-      movePerpendicular=-1;
+      movePerpendicular = -1;
       break;
     case 'd' : 
-      movePerpendicular=1;
+      movePerpendicular = 1;
       break;
     case 'e' : 
-      rotateParallel=1;
+      rotateParallel = 1;
       break;
     case 'q' : 
-      rotateParallel=-1;
+      rotateParallel = -1;
       break;
   }
 }
@@ -199,22 +200,22 @@ void bill::GLaux::processNormalKeysUp(unsigned char key, int x, int y) {
   
   switch (key) {
     case 'w' : 
-      moveParallel=0; 
+      moveParallel = 0; 
       break;
     case 's' : 
-      moveParallel=0;
+      moveParallel = 0;
       break;
     case 'a' : 
-      movePerpendicular=0;
+      movePerpendicular = 0;
       break;
     case 'd' : 
-      movePerpendicular=0;
+      movePerpendicular = 0;
       break;
     case 'e' : 
-      rotateParallel=0;
+      rotateParallel = 0;
       break;
     case 'q' : 
-      rotateParallel=0;
+      rotateParallel = 0;
       break;
   }
 }
@@ -234,9 +235,9 @@ void bill::GLaux::releaseKey(int key, int x, int y) {
     case GLUT_KEY_DOWN : break;
   }
 } 
-double bill::GLaux::FDdistribution(double e,double mu,double beta){
-  double exponent=exp((e-mu)*beta);
-  return exponent/(exponent+1.0);
+double bill::GLaux::FDdistribution(double e,double mu,double beta) {
+  double exponent = exp((e - mu) * beta);
+  return exponent / (exponent + 1.0);
 }
 
 void bill::GLaux::mouseMove(int x, int y) { 	
@@ -249,7 +250,7 @@ void bill::GLaux::mouseButton(int button, int state, int x, int y) {
     // when the button is released
     if (state == GLUT_UP) {
       IS_CLICKED = false;
-      rotateParallel=rotatePerpendicular=0;
+      rotateParallel = rotatePerpendicular = 0;
     }
     else  {// state = GLUT_DOWN
       IS_CLICKED = true;

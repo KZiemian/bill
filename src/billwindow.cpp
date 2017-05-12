@@ -1,57 +1,69 @@
 #include "../headers/billwindow.h"
 
-bill::Window::Window(int argc, char **argv){
-	window_position.x = 0;
-	window_position.y = 0;
-	window_resolution.x=800;
-	window_resolution.y=600;
-	window_title = "Title";
 
-	renderScene=static_cast<void(*)()>([](){
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+// **********************************************************************
 
-	glBegin(GL_TRIANGLES);
-		glVertex3f(-0.5,-0.5,0.0);
-		glVertex3f(0.5,0.0,0.0);
-		glVertex3f(0.0,0.5,0.0);
-	glEnd();
 
-	glutSwapBuffers();
-});
 
-	changeSize=static_cast<void(*)(int,int)>([](int w, int h){
-  if(h == 0)
-    h = 1;
-  float ratio = 1.0* w / h;
+bill::Window::Window(int argc, char **argv) {
+  window_position.x = 0;
+  window_position.y = 0;
+  window_resolution.x = 800;
+  window_resolution.y = 600;
+  window_title = "Title";
 
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  glViewport(0, 0, w, h);
-  gluPerspective(0,ratio,0.1,10000.0);
-  glMatrixMode(GL_MODELVIEW);
+  renderScene = static_cast<void(*)()>([](){
+      
+      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+      
+      glBegin(GL_TRIANGLES);
+      glVertex3f(-0.5, -0.5, 0.0);
+      glVertex3f(0.5, 0.0, 0.0);
+      glVertex3f(0.0, 0.5, 0.0);
+      glEnd();
 
-});
-	processNormalKeys=static_cast<void(*)(unsigned char,int,int)>([](unsigned char key, int x, int y){});
-	processNormalKeysUp=static_cast<void(*)(unsigned char,int,int)>([](unsigned char key, int x, int y){});
-	pressKey=static_cast<void(*)(int,int,int)>([](int key, int x, int y){});
-	releaseKey=static_cast<void(*)(int,int,int)>([](int key, int x, int y){});
-	mouseButton=static_cast<void(*)(int,int,int,int)>([](int button, int state, int x, int y){});
-	mouseActiveMove=static_cast<void(*)(int,int)>([](int x, int y){});
-	mousePassiveMove=static_cast<void(*)(int,int)>([](int x, int y){});
-	mainLoop=renderScene;
+      glutSwapBuffers();
+    });
 
-	this->argc=argc;
-	this->argv=argv;	
+  changeSize=static_cast<void(*)(int,int)>([](int w, int h) {
+      if(h == 0)
+	h = 1;
+      float ratio = 1.0 * w / h;
+
+      glMatrixMode(GL_PROJECTION);
+      glLoadIdentity();
+      glViewport(0, 0, w, h);
+      gluPerspective(0, ratio, 0.1, 10000.0);
+      glMatrixMode(GL_MODELVIEW);
+
+    });
+  
+  processNormalKeys = static_cast<void(*)(unsigned char, int, int)>
+    ([](unsigned char key, int x, int y){});
+  processNormalKeysUp = static_cast<void(*)(unsigned char, int, int)>
+    ([](unsigned char key, int x, int y){});
+  pressKey = static_cast<void(*)(int, int, int)>
+    ([](int key, int x, int y){});
+  releaseKey = static_cast<void(*)(int, int, int)>([](int key, int x,
+						    int y){});
+  mouseButton=static_cast<void(*)(int, int, int, int)>
+    ([](int button, int state, int x, int y){});
+  mouseActiveMove = static_cast<void(*)(int, int)>([](int x, int y){});
+  mousePassiveMove = static_cast<void(*)(int, int)>([](int x, int y){});
+  mainLoop = renderScene;
+
+  this->argc = argc;
+  this->argv = argv;	
 }
 
-void bill::Window::initiate(){
-  glutInit(&argc,argv);
-  glutInitWindowPosition(window_position.x,window_position.y);
-  glutInitWindowSize(window_resolution.x,window_resolution.y);
+void bill::Window::initiate() {
+  glutInit(&argc, argv);
+  glutInitWindowPosition(window_position.x, window_position.y);
+  glutInitWindowSize(window_resolution.x, window_resolution.y);
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
   glutCreateWindow(window_title.c_str());
-  glutWarpPointer(window_resolution.x/2,window_resolution.y/2);
+  glutWarpPointer(window_resolution.x / 2, window_resolution.y / 2);
 
   // register callbacks
   glutDisplayFunc(renderScene);
@@ -85,6 +97,7 @@ void bill::Window::initiate(){
 
 }
 
+// Tu skończyłem
 void bill::Window::set_renderScene(void(*f)(void)){
   renderScene=f;
 }
