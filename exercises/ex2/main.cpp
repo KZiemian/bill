@@ -5,32 +5,59 @@
 #include "../../headers/billmaterialpoint.h"
 #include "../../headers/billengine.h"
 
+
+
+// **********************************************************************
+
 void renderScene(void);
 void mainLoop(void);
 
-bill::BillIntegrator HollyWood = [](std::pair<bill::vector,bill::vector> PhasePoint0, std::pair<bill::vector,bill::vector> PhasePointM, bill::vector Force, double step){
+bill::BillIntegrator HollyWood = [](std::pair<bill::vector, bill::vector>
+				    PhasePoint0,
+				    std::pair<bill::vector, bill::vector>
+				    PhasePointM,
+				    bill::vector Force, double step) {
 
-bill::vector x = std::get<0>( PhasePoint0 );
-bill::vector v = std::get<1>( PhasePoint0 );
+  bill::vector x = std::get<0>( PhasePoint0 );
+  bill::vector v = std::get<1>( PhasePoint0 );
 
-x+=step*v;
+  x += step*v;
 
-return std::pair<bill::vector,bill::vector>(x,v);
 
+  return std::pair<bill::vector, bill::vector>(x,v);
 };
 
 bill::BillSetOfPoints SetOfPoints;
 
 bill::BillEngine engine;
 
-int main(int argc, char **argv){
+// **********************************************************************
 
-  bill::GLaux::eye=bill::vector({-1,0,0});
-  bill::GLaux::center=bill::vector({0,0,0});
+
+
+int main(int argc, char **argv) {
+
+  bill::GLaux::eye = bill::vector({-1, 0, 0});
+  bill::GLaux::center = bill::vector({0, 0, 0});
 
   SetOfPoints.AddPoint(new bill::BillMaterialPoint(HollyWood));
-  SetOfPoints.AddPoint(new bill::BillMaterialPoint(HollyWood,bill::vector({0.0,0.2,0.0}),bill::vector({0.0,0.0,0.1}),1.0,bill::vector({0.0,1.0,0.0})));
-  SetOfPoints.AddPoint(std::shared_ptr<bill::BillMaterialPoint>(new bill::BillMaterialPoint(HollyWood,bill::vector({0.0,-0.2,0.0}),bill::vector({0.0,0.0,-0.1}),1.0,bill::vector({0.0,0.0,1.0}))));
+  SetOfPoints.AddPoint(new bill::BillMaterialPoint(HollyWood,
+						   bill::vector({0.0, 0.2,
+							 0.0}),
+						   bill::vector({0.0, 0.0,
+							 0.1}),
+						   1.0,
+						   bill::vector({0.0, 1.0,
+							 0.0})));
+  SetOfPoints.AddPoint(std::shared_ptr<bill::BillMaterialPoint>
+		       (new bill::BillMaterialPoint(HollyWood,
+						    bill::vector({0.0, -0.2,
+							  0.0}),
+						    bill::vector({0.0, 0.0,
+							  -0.1}),
+						    1.0,
+						    bill::vector({0.0, 0.0,
+							  1.0}))));
 
   engine = bill::BillEngine(SetOfPoints);
 
@@ -41,23 +68,30 @@ int main(int argc, char **argv){
   window.set_mainLoop(mainLoop);
 
   window.initiate();
+
+
   return 0;
 }
 
-void mainLoop(void){
+
+// **********************************************************************
+
+void mainLoop(void) {
   engine.step();
   renderScene();
 }
 
+// **********************************************************************
 
 void renderScene(void) {
-  if(bill::GLaux::moveParallel|bill::GLaux::movePerpendicular|bill::GLaux::rotateParallel|bill::GLaux::rotatePerpendicular)
+  if (bill::GLaux::moveParallel | bill::GLaux::movePerpendicular
+      | bill::GLaux::rotateParallel | bill::GLaux::rotatePerpendicular)
     bill::GLaux::computePos();
  
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(45.0,800.0/600.0,0.1,1000000000.0);
+  gluPerspective(45.0, (800.0 / 600.0), 0.1, 1000000000.0);
   glMatrixMode(GL_MODELVIEW);
   
   
