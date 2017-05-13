@@ -7,6 +7,10 @@
 #include "../../headers/billintegrators.h"
 #include "oscillator.h"
 
+
+
+// **********************************************************************
+
 void renderScene(void);
 void mainLoop(void);
 
@@ -14,12 +18,20 @@ bill::BillSetOfPoints SetOfPoints;
 
 bill::BillEngine engine;
 
-int main(int argc, char **argv){
+// **********************************************************************
 
-  bill::GLaux::eye=bill::vector({-1,0,0});
-  bill::GLaux::center=bill::vector({0,0,0});
 
-  SetOfPoints.AddPoint(new oscillator(bill::Verlet,0.1,bill::vector({0.0,0.3,0.0})));
+
+
+
+int main(int argc, char **argv) {
+
+  bill::GLaux::eye = bill::vector({-1, 0, 0});
+  bill::GLaux::center = bill::vector({0, 0, 0});
+
+  SetOfPoints.AddPoint(new oscillator(bill::Verlet,
+				      0.1,
+				      bill::vector({0.0, 0.3, 0.0})));
   engine = bill::BillEngine(SetOfPoints);
 
   bill::Window window(argc,argv);
@@ -29,23 +41,29 @@ int main(int argc, char **argv){
   window.set_mainLoop(mainLoop);
 
   window.initiate();
+
+
   return 0;
 }
 
-void mainLoop(void){
+
+// **********************************************************************
+
+void mainLoop(void) {
   engine.step();
   renderScene();
 }
 
 
 void renderScene(void) {
-  if(bill::GLaux::moveParallel|bill::GLaux::movePerpendicular|bill::GLaux::rotateParallel|bill::GLaux::rotatePerpendicular)
+  if (bill::GLaux::moveParallel | bill::GLaux::movePerpendicular
+      | bill::GLaux::rotateParallel | bill::GLaux::rotatePerpendicular)
     bill::GLaux::computePos();
  
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(45.0,800.0/600.0,0.1,1000000000.0);
+  gluPerspective(45.0, (800.0 / 600.0), 0.1, 1000000000.0);
   glMatrixMode(GL_MODELVIEW);
   
   
