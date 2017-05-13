@@ -1,15 +1,26 @@
 #include "ball.h"
 
-bill::vector ball::Force(){
-//  return bill::vector({0.,0.,0.});                       // nie grawitacja
-//  return mass*g*bill::vector({0.,-1.,0.})-2*beta*v();    //  izograwitacja
-  return mass*g*((-x())/pow(bill::vector::norm(x()),3)); //     grawitacja
-//  return mass*g*((x())/pow(bill::vector::norm(x()),3));  // antygrawitacja
+
+
+// **********************************************************************
+
+
+
+bill::vector ball::Force() {
+  //  return bill::vector({0.,0.,0.});                       // nie grawitacja
+  //  return mass*g*bill::vector({0.,-1.,0.})-2*beta*v();    //  izograwitacja
+  return mass * g * ((-x()) / pow(bill::vector::norm(x()), 3));
+  //     grawitacja
+  //  return mass*g*((x())/pow(bill::vector::norm(x()),3));  // antygrawitacja
 }
 
-ball::ball(bill::BillIntegrator algorithm, double g, double beta, bill::vector position, bill::vector velocity, double mass, bill::vector color, double step):bill::BillMaterialPoint(algorithm,position,velocity,mass,color,step){
-	this->g=g;
-	this->beta=beta;
+ball::ball(bill::BillIntegrator algorithm, double g, double beta,
+	   bill::vector position, bill::vector velocity, double mass,
+	   bill::vector color, double step):
+  bill::BillMaterialPoint(algorithm, position, velocity, mass, color,
+			  step) {
+  this->g = g;
+  this->beta = beta;
 }
 
 void ball::Draw()
@@ -19,9 +30,9 @@ void ball::Draw()
   bill::vector v  = this->v();      // pobieramy prędkość
   double length = bill::vector::norm(v);
 
-  if(length<radius)  return;
+  if(length < radius)  return; // Nie rozumiem tej linii.
 
   bill::vector x0 = this->x();          // pobieramy położenie punktu
 
-  bill::GLaux::drawVector(v,x0);
+  bill::GLaux::drawVector(v, x0);
 }
