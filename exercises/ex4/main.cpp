@@ -99,65 +99,72 @@ int main(int argc, char **argv) {
 
   //Tworzymy sprężynki do prawego
   for (int i = 0; i < (above + below); ++i) {
-    O[i]->set_right(O[i + 1]);
+    O[i]->set_right(O[i+1]);
   }
 
   //Tworzymy sprężynki do lewego
   for (int i = 1; i < (above + below + 1); ++i) {
-    O[i]->set_left(O[i - 1]);
+    O[i]->set_left(O[i-1]);
   }
 
   //Tworzymy sprężynki do 2go prawego
-  for(int i=0; i<above+below-1; ++i){
+  for (int i = 0; i < (above + below - 1); ++i) {
     O[i]->set_2nd_right(O[i+2]);
   }
   //Tworzymy sprężynki do 2go lewego
-  for(int i=2; i<above+below+1; ++i){
+  for (int i = 2; i < (above + below + 1); ++i) {
     O[i]->set_2nd_left(O[i-2]);
   }
 
   //Tworzymy sprężynki do 3go prawego
-  for(int i=0; i<above+below-2; ++i){
+  for (int i = 0; i < (above + below - 2); ++i) {
     O[i]->set_3rd_right(O[i+3]);
   }
   //Tworzymy sprężynki do 3go lewego
-  for(int i=3; i<above+below+1; ++i){
+  for (int i = 3; i < (above + below + 1); ++i) {
     O[i]->set_3rd_left(O[i-3]);
   }
 
-  for(int i=0; i<=below; ++i)
+  for (int i = 0; i <= below; ++i)
     O[i]->disable();
 
-  O[below+above]->set_position(O[below+above]->x()+bill::vector({0.,0.,.01}));
+  O[below + above]->set_position(O[below + above]->x()
+				 + bill::vector({0.0, 0.0, 0.01}));
 
   grass.set_level(O[below]->x()[1]);
 
   engine = bill::BillEngine(grass);
 
-  bill::Window window(argc,argv);
+  bill::Window window(argc, argv);
   window.set_processNormalKeys(bill::GLaux::processNormalKeys);
   window.set_processNormalKeysUp(bill::GLaux::processNormalKeysUp);
   window.set_renderScene(renderScene);
   window.set_mainLoop(mainLoop);
 
   window.initiate();
+
+
   return 0;
 }
 
-void mainLoop(void){
+
+// **********************************************************************
+
+void mainLoop(void) {
   engine.step();
   renderScene();
 }
 
 
 void renderScene(void) {
-  if(bill::GLaux::moveParallel|bill::GLaux::movePerpendicular|bill::GLaux::rotateParallel|bill::GLaux::rotatePerpendicular)
+  if (bill::GLaux::moveParallel | bill::GLaux::movePerpendicular
+      | bill::GLaux::rotateParallel | bill::GLaux::rotatePerpendicular)
     bill::GLaux::computePos();
  
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(45.0,800.0/600.0,0.1,1000000000.0);
+  gluPerspective(45.0, (800.0 / 600.0), 0.1, 1000000000.0);
   glMatrixMode(GL_MODELVIEW);
   
   
