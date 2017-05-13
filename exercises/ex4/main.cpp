@@ -9,56 +9,68 @@
 #include "../../headers/billintegrators.h"
 #include "oscillator.h"
 
+
+
+// **********************************************************************
+
 void renderScene(void);
 void mainLoop(void);
 
-class Grass: public bill::BillSetOfPoints{
-protected:
-  float ground_level;
+class Grass: public bill::BillSetOfPoints {
 public:
-
-  Grass():bill::BillSetOfPoints(){
-    ground_level=0.f;
+  Grass():bill::BillSetOfPoints() {
+    ground_level = 0.f;
   }
 
-  void set_level(float level){
-    ground_level=level;
+  void set_level(float level) {
+    ground_level = level;
   }
 
-  virtual void Draw(){
+  virtual void Draw() {
     bill::BillSetOfPoints::Draw();
 
     glColor4f(0.28627451, 0.15686275, 0.12156863,0.8);
     glBegin(GL_QUADS);
-    glVertex3f(-5.0f, ground_level-0.2, -5.0f);
-    glVertex3f(-5.0f, ground_level-0.2,  5.0f);
+    glVertex3f(-5.0f, ground_level - 0.2, -5.0f);
+    glVertex3f(-5.0f, ground_level - 0.2,  5.0f);
     glVertex3f( 5.0f, ground_level,  5.0f);
     glVertex3f( 5.0f, ground_level, -5.0f);
     glEnd();
     glPopMatrix();
 
-    for(unsigned int i =1; i<points.size(); ++i){
-      bill::vector x0 =   points[i]->position();
-      bill::vector xm = points[i-1]->position();
+    for (unsigned int i = 1; i < points.size(); ++i) {
+      bill::vector x0 = points[i]->position();
+      bill::vector xm = points[i - 1]->position();
 
       glPushMatrix();
       glLineWidth(2.5);
       glColor3f(1.0, 1.0, 1.0);
       glBegin(GL_LINES);
-      glVertex3f(x0[0],x0[1],x0[2]);
-      glVertex3f(xm[0],xm[1],xm[2]);
+      glVertex3f(x0[0], x0[1], x0[2]);
+      glVertex3f(xm[0], xm[1], xm[2]);
       glEnd();
       glPopMatrix();
     }
   }
+
+
+
+protected:
+  float ground_level;
 } grass;
 
 bill::BillEngine engine;
 
-int main(int argc, char **argv){
+// **********************************************************************
 
-  bill::GLaux::eye=bill::vector({-5,0,0});
-  bill::GLaux::center=bill::vector({0,0,0});
+
+
+
+
+int main(int argc, char **argv) {
+
+  bill::GLaux::eye = bill::vector({-5, 0, 0});
+  bill::GLaux::center = bill::vector({0, 0, 0});
 
   std::vector<std::shared_ptr<oscillator>> O;
   double step = 0.1; // integration step
@@ -67,28 +79,32 @@ int main(int argc, char **argv){
   int below = 3;
 
   //Tworzymy Oscylatory Sprzężone
-  for(int i=-below; i<=above; ++i){
+  for (int i = -below; i <= above; ++i) {
     bill::vector color({0.97254902, 0.92156863, 0.83529412}); // ecru
     bill::vector green({0.55294118, 0.74117647, 0.04705882});
-    double alpha=0.2;
-    double k=100.;
-    if(i>0){//nie jest korzeniem
-      alpha = static_cast<double>(i)/static_cast<double>(0.7*above);
-      if(alpha>1.) alpha=1.;
-      color=(1.-alpha)*color+alpha*green;
-      k-=90.*alpha;
+    double alpha = 0.2;
+    double k = 100.;
+    if (i > 0) {//nie jest korzeniem
+      alpha = static_cast<double>(i) / static_cast<double>(0.7 * above);
+      if(alpha > 1.0) alpha = 1.0;
+      color = (1.0 - alpha) * color + alpha * green;
+      k -= 90.0 * alpha;
     }
-    O.push_back(std::shared_ptr<oscillator>(new oscillator(bill::Verlet,k,0.15,bill::vector({0.0,0.15*i,0.}),bill::vector({0.0,0.0,0.0}),2.4-2*alpha,color,step)));
+    O.push_back(std::shared_ptr<oscillator>(new oscillator(bill::Verlet,
+							   k, 0.15,
+							   bill::vector({0.0, 0.15 * i, 0.}),
+							   bill::vector({0.0, 0.0, 0.0}), 2.4 - 2 * alpha, color, step)));
     grass.AddPoint(O.back());
   }
 
   //Tworzymy sprężynki do prawego
-  for(int i=0; i<above+below; ++i){
-    O[i]->set_right(O[i+1]);
+  for (int i = 0; i < (above + below); ++i) {
+    O[i]->set_right(O[i + 1]);
   }
+
   //Tworzymy sprężynki do lewego
-  for(int i=1; i<above+below+1; ++i){
-    O[i]->set_left(O[i-1]);
+  for (int i = 1; i < (above + below + 1); ++i) {
+    O[i]->set_left(O[i - 1]);
   }
 
   //Tworzymy sprężynki do 2go prawego
