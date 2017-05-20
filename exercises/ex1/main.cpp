@@ -51,7 +51,7 @@ void renderScene(void) {
 	    bill::GLaux::center[0],	bill::GLaux::center[1],		bill::GLaux::center[2],
 	    bill::GLaux::versor_up[0],	bill::GLaux::versor_up[1],	bill::GLaux::versor_up[2]);
 
-  bill::vector R ({0,0,0});
+  bill::vector R ({0, 0, 0});
 
   bill::GLaux::drawBall(R);
   

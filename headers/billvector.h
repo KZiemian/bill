@@ -16,6 +16,7 @@
 
 namespace bill {
 
+  /* Za pomocą szablonów definiujemy klasę wektor */
   template<typename T, size_t N>
     class vectorNd {
     
@@ -358,11 +359,12 @@ namespace bill {
       }
     }
 
-  quaternion(double valueS,vector valueV): s(valueS), v(valueV) {
+  quaternion(double valueS,vector valueV)
+    : s(valueS), v(valueV) {
     }
     
-  quaternion(vector versor, double theta): s(cos(theta / 2.0)),
-      v(versor.versor() * sin(theta / 2.0)) {
+  quaternion(vector versor, double theta)
+    : s(cos(theta / 2.0)), v(versor.versor() * sin(theta / 2.0)) {
     }
     
     double operator[](int n) const {
@@ -385,6 +387,7 @@ namespace bill {
 
 
 	return *(new double);
+	
       } else if (n == -1)
 	return s;
       else
@@ -500,7 +503,7 @@ namespace bill {
   protected:
     double s;
     vector v;
-  };	// end class quaternion
+  };    // Koniec klasy KWATERION
   
-}	//end namespace bill
-#endif //BILLVECTOR_H
+}    // Koniec przestrzeni nazw BILL
+#endif    // BILLVECTOR_H

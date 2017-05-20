@@ -90,7 +90,7 @@ namespace bill {
   class BillSetOfPoints {
   public:
     BillSetOfPoints(){};
-    virtual	~BillSetOfPoints();
+    virtual ~BillSetOfPoints();
 
     void AddPoint(std::shared_ptr<BillMaterialPoint> p);
     void AddPoint(BillMaterialPoint *p);

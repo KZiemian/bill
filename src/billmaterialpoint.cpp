@@ -190,9 +190,9 @@ void bill::BillSetOfPoints::Go() {
 }
 
 void bill::BillSetOfPoints::ResetToCenterMass() {
-  bill::vector CMx({0,0,0});
-  bill::vector CMv({0,0,0});
-  double CMm = 0.;
+  bill::vector CMx({0, 0, 0});
+  bill::vector CMv({0, 0, 0});
+  double CMm = 0.0;
 
   for(auto& point : points) {
     CMx += point->m() * point->x();

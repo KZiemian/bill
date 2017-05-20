@@ -21,10 +21,10 @@ bill::BillIntegrator HollyWood = [](std::pair<bill::vector, bill::vector>
   bill::vector x = std::get<0>( PhasePoint0 );
   bill::vector v = std::get<1>( PhasePoint0 );
 
-  x += step*v;
+  x += step * v;
 
 
-  return std::pair<bill::vector, bill::vector>(x,v);
+  return std::pair<bill::vector, bill::vector>(x, v);
 };
 
 bill::BillSetOfPoints SetOfPoints;
@@ -45,8 +45,7 @@ int main(int argc, char **argv) {
 						   bill::vector({0.0, 0.2,
 							 0.0}),
 						   bill::vector({0.0, 0.0,
-							 0.1}),
-						   1.0,
+							 0.1}), 1.0,
 						   bill::vector({0.0, 1.0,
 							 0.0})));
   SetOfPoints.AddPoint(std::shared_ptr<bill::BillMaterialPoint>
@@ -54,8 +53,7 @@ int main(int argc, char **argv) {
 						    bill::vector({0.0, -0.2,
 							  0.0}),
 						    bill::vector({0.0, 0.0,
-							  -0.1}),
-						    1.0,
+							  -0.1}), 1.0,
 						    bill::vector({0.0, 0.0,
 							  1.0}))));
 

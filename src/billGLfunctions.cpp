@@ -4,9 +4,9 @@ float bill::GLaux::colorR = 0.0;
 float bill::GLaux::colorB = 0.0;
 float bill::GLaux::colorG = 0.0;
 
-bill::vector bill::GLaux::eye=bill::vector({1.0, 1.0, 0.0});
-bill::vector bill::GLaux::center=bill::vector({0.0, 1.0, 0.0});
-bill::vector bill::GLaux::versor_up=bill::vector({0.0, 1.0, 0.0});
+bill::vector bill::GLaux::eye = bill::vector({1.0, 1.0, 0.0});
+bill::vector bill::GLaux::center = bill::vector({0.0, 1.0, 0.0});
+bill::vector bill::GLaux::versor_up = bill::vector({0.0, 1.0, 0.0});
 
 float bill::GLaux::phi = 0.0f;
 float bill::GLaux::theta = 0.0f;
@@ -148,8 +148,8 @@ void bill::GLaux::drawSnowMan() {
   glColor3f(1.0f, 1.0f, 1.0f);
   
   // Draw Body
-  glTranslatef(0.0f ,0.75f, 0.0f);
-  glutSolidSphere(0.75f,20,20);
+  glTranslatef(0.0f, 0.75f, 0.0f);
+  glutSolidSphere(0.75f, 20, 20);
   
   // Draw Head
   glTranslatef(0.0f, 1.0f, 0.0f);
@@ -165,7 +165,7 @@ void bill::GLaux::drawSnowMan() {
   glPopMatrix();
   
   // Draw Nose
-  glColor3f(1.0f, 0.5f , 0.5f);
+  glColor3f(1.0f, 0.5f, 0.5f);
   glRotatef(0.0f, 1.0f, 0.0f, 0.0f);
   glutSolidCone(0.08f, 0.5f, 10, 2);
 }

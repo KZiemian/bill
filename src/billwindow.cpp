@@ -97,34 +97,44 @@ void bill::Window::initiate() {
 
 }
 
-// Tu skończyłem
-void bill::Window::set_renderScene(void(*f)(void)){
-  renderScene=f;
+void bill::Window::set_renderScene(void (*f)(void)) {
+  renderScene = f;
 }
-void bill::Window::set_changeSize(void(*f)(int,int)){
-  changeSize=f;
+
+void bill::Window::set_changeSize(void (*f)(int, int)){
+  changeSize = f;
 }
-void bill::Window::set_processNormalKeys(void(*f)(unsigned char,int,int)){
-  processNormalKeys=f;
+
+void bill::Window::set_processNormalKeys(void (*f)(unsigned char, int,
+						   int)) {
+  processNormalKeys = f;
 }
-void bill::Window::set_processNormalKeysUp(void(*f)(unsigned char,int,int)){
-  processNormalKeysUp=f;
+
+void bill::Window::set_processNormalKeysUp(void (*f)(unsigned char, int,
+						     int)) {
+  processNormalKeysUp = f;
 }
-void bill::Window::set_pressKey(void(*f)(int,int,int)){
-  pressKey=f;
+
+void bill::Window::set_pressKey(void (*f)(int, int, int)) {
+  pressKey = f;
 }
-void bill::Window::set_releaseKey(void(*f)(int,int,int)){
-  releaseKey=f;
+
+void bill::Window::set_releaseKey(void (*f)(int, int, int)) {
+  releaseKey = f;
 }
-void bill::Window::set_mouseButton(void(*f)(int,int,int,int)){
-  mouseButton=f;
+
+void bill::Window::set_mouseButton(void (*f)(int, int, int, int)) {
+  mouseButton = f;
 }
-void bill::Window::set_mouseActiveMove(void(*f)(int,int)){
-  mouseActiveMove=f;
+
+void bill::Window::set_mouseActiveMove(void (*f)(int, int)) {
+  mouseActiveMove = f;
 }
-void bill::Window::set_mousePassiveMove(void(*f)(int,int)){
-  mousePassiveMove=f;
+
+void bill::Window::set_mousePassiveMove(void (*f)(int, int)) {
+  mousePassiveMove = f;
 }
-void bill::Window::set_mainLoop(void(*f)(void)){
-  mainLoop=f;
+
+void bill::Window::set_mainLoop(void (*f)(void)) {
+  mainLoop = f;
 }

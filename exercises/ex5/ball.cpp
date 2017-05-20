@@ -16,9 +16,9 @@ bill::vector ball::Force() {
 
 ball::ball(bill::BillIntegrator algorithm, double g, double beta,
 	   bill::vector position, bill::vector velocity, double mass,
-	   bill::vector color, double step):
-  bill::BillMaterialPoint(algorithm, position, velocity, mass, color,
-			  step) {
+	   bill::vector color, double step)
+  : bill::BillMaterialPoint(algorithm, position, velocity, mass, color,
+			    step) {
   this->g = g;
   this->beta = beta;
 }

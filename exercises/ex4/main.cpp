@@ -19,7 +19,7 @@ void mainLoop(void);
 class Grass: public bill::BillSetOfPoints {
 public:
   Grass():bill::BillSetOfPoints() {
-    ground_level = 0.f;
+    ground_level = 0.0f;
   }
 
   void set_level(float level) {
@@ -29,7 +29,7 @@ public:
   virtual void Draw() {
     bill::BillSetOfPoints::Draw();
 
-    glColor4f(0.28627451, 0.15686275, 0.12156863,0.8);
+    glColor4f(0.28627451, 0.15686275, 0.12156863, 0.8);
     glBegin(GL_QUADS);
     glVertex3f(-5.0f, ground_level - 0.2, -5.0f);
     glVertex3f(-5.0f, ground_level - 0.2,  5.0f);

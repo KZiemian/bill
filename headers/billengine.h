@@ -26,7 +26,7 @@ namespace bill {
     unsigned int starttime;
     unsigned int now;
     double timestep;
-  }; //end of class BillEngine
+  }; // end of class BillEngine
 
-} //end of namespace bill
+} // end of namespace bill
 #endif

@@ -94,9 +94,9 @@ void renderScene(void) {
   // Draw 36 SnowMen
   
   for (int i = -3; i < 3; i++)
-    for (int j=-3; j < 3; j++) {
+    for (int j = -3; j < 3; j++) {
       glPushMatrix();
-      glTranslatef(i*10.0, 0, j * 10.0);
+      glTranslatef(i * 10.0, 0, j * 10.0);
       drawSnowMan();
       glPopMatrix();
     }
