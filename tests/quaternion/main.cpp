@@ -11,7 +11,7 @@
 int main(){
 	bill::quaternion q1({2.0, 3.0, 4.0});
 	bill::quaternion q2({0.1, 2.0, 3.0, 4.0});
-	bill::quaternion q3(0.1,{1.0, 0.0, 0.0});
+	bill::quaternion q3(0.1, {1.0, 0.0, 0.0});
 	double theta1 = M_PI / 3.0;
 	bill::vector v1({1.0, 0.0, 0.0});
 	double theta2 = M_PI / 12.0;
