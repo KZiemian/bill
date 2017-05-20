@@ -55,8 +55,8 @@ bill::BillEngine engine;
 
 int main(int argc, char **argv) {
 
-  bill::GLaux::eye=bill::vector({-5, 0, 0});
-  bill::GLaux::center=bill::vector({0, 0, 0});
+  bill::GLaux::eye = bill::vector({-5, 0, 0});
+  bill::GLaux::center = bill::vector({0, 0, 0});
 
   std::vector<std::shared_ptr<ball>> O;
   double step = 0.1; // integration step
