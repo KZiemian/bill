@@ -13,8 +13,8 @@ int main(){
   bill::vectorNd<double, 3> tst1;
   bill::vectorNd<double, 4> tst2(1.0);
   bill::vectorNd<double, 5> tst3({1.0, 2.0, 3.0, 4.0, 5.0});
-  bill::vector		tst5a({1.0, 2.0, 3.0});
-  bill::vector		tst5b({2.0, 3.0, 4.0});
+  bill::vector tst5a({1.0, 2.0, 3.0});
+  bill::vector tst5b({2.0, 3.0, 4.0});
 
   std::cout << tst1 << std::endl;
   std::cout << tst2 << std::endl;
