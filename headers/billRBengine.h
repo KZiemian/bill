@@ -1,10 +1,11 @@
-#ifndef BILLENGINE_H
-#define BILLENGINE_H
+#ifndef BILLRBENGINE_H
+#define BILLRBENGINE_H
+
 
 
 #include <iostream>
 #include <cmath>
-#include "billmaterialpoint.h"
+#include "billrigidbody.h"
 
 
 
@@ -12,23 +13,22 @@
 
 namespace bill {
 
-  class BillEngine {
-  public:
-    BillEngine();
-    BillEngine(BillSetOfPoints& set);
-    void step();
-
-
-
+  class BillRBEngine {
   private:
-    BillSetOfPoints* set;
+    BillSetOfRigidBodies* set;
     unsigned int starttime;
     unsigned int now;
     double timestep;
-  }; // end of class BillEngine
-} // end of namespace bill
 
+  public:
+    BillRBEngine();
+    BillRBEngine(BillSetOfRigidBodies& set);
+    void step();
+    }; //end of class BillRBEngine
+
+} //end of namespace bill
 
 /* ********************************************************************** */
+
 
 #endif

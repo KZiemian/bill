@@ -1,6 +1,7 @@
 #ifndef BILLGLFUNCTIONS_H
 #define BILLGLFUNCTIONS_H
 
+
 #include <cmath>
 #include <iostream>
 #include "billvector.h"
@@ -11,8 +12,6 @@
 
 
 /* ********************************************************************** */
-
-
 
 namespace bill {
   namespace GLaux {
@@ -47,6 +46,12 @@ namespace bill {
     void drawBall(bill::vector position, bill::vector color
 		  = bill::vector({1.0, 0.0, 0.0}), float radius = 0.1,
 		  float alpha = 1.0);
+    void drawBox(std::vector<bill::vector> vertecies,
+		 std::vector<bill::vector> colors
+		 = std::vector<bill::vector>(6, {1.0, 0.0, 0.0}),
+		 float alpha = 1.0);
+    // convention vertices: start top left front anticlockwise then
+    /* bottom anticlockwise; borders: top, bottom, left, right, front, back */
     void drawVector(bill::vector vec, bill::vector position
 		    = bill::vector({0.0, 0.0, 0.0}),
 		    bill::vector color = bill::vector({1.0, 1.0, 1.0}));
@@ -63,4 +68,8 @@ namespace bill {
 
   } //end of namespace GLaux
 } //end of namespace bill
+
+
+/* ********************************************************************** */
+
 #endif
