@@ -14,9 +14,9 @@ bill::Window::Window(int argc, char **argv) {
   window_title = "Title";
 
   renderScene = static_cast<void(*)()>([](){
-      
+
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-      
+
       glBegin(GL_TRIANGLES);
       glVertex3f(-0.5, -0.5, 0.0);
       glVertex3f(0.5, 0.0, 0.0);
@@ -38,7 +38,7 @@ bill::Window::Window(int argc, char **argv) {
       glMatrixMode(GL_MODELVIEW);
 
     });
-  
+
   processNormalKeys = static_cast<void(*)(unsigned char, int, int)>
     ([](unsigned char key, int x, int y){});
   processNormalKeysUp = static_cast<void(*)(unsigned char, int, int)>
@@ -54,7 +54,7 @@ bill::Window::Window(int argc, char **argv) {
   mainLoop = renderScene;
 
   this->argc = argc;
-  this->argv = argv;	
+  this->argv = argv;
 }
 
 void bill::Window::initiate() {
@@ -90,7 +90,25 @@ void bill::Window::initiate() {
   glEnable(GL_DEPTH_TEST);
 
   // Transparency
-  glEnable (GL_BLEND); glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  glEnable (GL_BLEND);
+  glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+  // light
+  GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+  GLfloat mat_shininess[] = { 50.0 };
+  GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
+  glClearColor (0.0, 0.0, 0.0, 0.0);
+  glShadeModel (GL_SMOOTH);
+
+  glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+  glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+  glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+
+  glEnable(GL_LIGHTING);
+  glEnable(GL_LIGHT0);
+
+  glEnable(GL_COLOR_MATERIAL); // so that there will be color
+
 
   // enter GLUT event processing cycle
   glutMainLoop();
